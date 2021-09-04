@@ -1,1 +1,1 @@
-this gmae used Open Source
+this game used Open Source

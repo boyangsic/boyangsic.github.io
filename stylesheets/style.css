@@ -2,12 +2,6 @@
 
 /* Rotation animation */
 /* Solution found on StackOverflow: https://stackoverflow.com/questions/16771225/css3-rotate-animation#16771693 */
-@keyframes rotation {
-    100% {
-        -webkit-transform: rotate(360deg);
-        transform:rotate(360deg);
-    }
-}
 
 @font-face {
     font-family: Gmarket;
@@ -106,7 +100,6 @@ body{
     margin: 0 auto;
     top: 25%;
     transition: width 0.2s ease-in-out, top 0.2s ease-in-out;
-    animation: rotation 20s linear infinite;
     border-radius: 500px;
 }
 .aopcoin:hover{

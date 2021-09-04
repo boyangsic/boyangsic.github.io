@@ -1,10 +1,10 @@
-# Bitcoin Clicker
+# aopcoin Clicker
 
-This repository contains the source code of the game **Bitcoin Clicker**.
+This repository contains the source code of the game **aopcoin Clicker**.
 
-You can play the current **stable** version here: [Play now!](https://julianyaman.github.io/bitcoin-clicker/index.html)
+You can play the current **stable** version here: [Play now!](https://julianyaman.github.io/aopcoin-clicker/index.html)
 
-## Changelog - [here](https://github.com/julianYaman/bitcoin-clicker/blob/master/CHANGELOG.md)
+## Changelog - [here](https://github.com/julianYaman/aopcoin-clicker/blob/master/CHANGELOG.md)
 
 ## Contributing
 
@@ -22,7 +22,7 @@ I recommand that you follow this order:
 
 There are following things planned for future updates:
 
-- Revise the item price system (higher prices, better Bitcoin/second rate)
+- Revise the item price system (higher prices, better aopcoin/second rate)
 - Better code structure
 - Better looking design for the item menu
 - (**BIG**) Special items with the ability to give some bonus.

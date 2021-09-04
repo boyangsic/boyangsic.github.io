@@ -1,5 +1,5 @@
-var bitcoins = 0
-var bitcoinRate = 0
+var aopcoins = 0
+var aopcoinRate = 0
 
 // Every item in the game
 // TODO: items should be part of the Game variable
@@ -69,7 +69,7 @@ var items = [
     "price": "75500000"
   },
   {
-    "name": "item_bitcoinTimeMachine",
+    "name": "item_aopcoinTimeMachine",
     "price": "975000000"
   },
   {
@@ -81,27 +81,27 @@ var items = [
 // Rate is null (at the beginning)
 var bSec = null;
 
-// If there is no bitcoins Item in the localStorage, create one.
+// If there is no aopcoins Item in the localStorage, create one.
 // If there is one, do the other thing.
-if(localStorage.getItem("bitcoins") === null){
-  // Bitcoins are 0
-  bitcoins = 0
+if(localStorage.getItem("aopcoins") === null){
+  // aopcoins are 0
+  aopcoins = 0
 
   // Set the localStorage Item for the first time
-  localStorage.setItem("bitcoins", "0");
+  localStorage.setItem("aopcoins", "0");
 
-  // Write the current amount of Bitcoins on the page
-  $(".bitcoinAmount").text(bitcoins.toFixed(8))
+  // Write the current amount of aopcoins on the page
+  $(".aopcoinAmount").text(aopcoins.toFixed(8))
 
 }else{
 
-  // Get the amount of Bitcoins and parse them to a float number
-  bitcoins = parseFloat(localStorage.getItem("bitcoins"))
+  // Get the amount of aopcoins and parse them to a float number
+  aopcoins = parseFloat(localStorage.getItem("aopcoins"))
 
-  $(".bitcoinAmount").text("loading...")
+  $(".aopcoinAmount").text("loading...")
   $(".satoshiAmount").text("loading...")
 
-  let satoshis = bitcoins * 100000000;
+  let satoshis = aopcoins * 100000000;
 
 }
 
@@ -175,7 +175,7 @@ Game.setPriceAtGameBeginning = function (element, price, itemAmount) {
   var calculation = (parseFloat(price) * Math.pow(multiplier, parseInt(itemAmount))).toFixed(8)
 
   // Showing the actual price
-  element.children()[2].textContent = calculation + " Bitcoins"
+  element.children()[2].textContent = calculation + " aopcoins"
 
   // Set the data-price attribute with the new price
   element.attr("data-price", calculation.toString())
@@ -208,10 +208,10 @@ Game.itemAction = function (id) {
 
 
 /**
- * Calculating the Bitcoins per Second - rate when the page was opened.
+ * Calculating the aopcoins per Second - rate when the page was opened.
  *
  */
-Game.setBitcoinPerSecondRateAtBeginning = function () {
+Game.setaopcoinPerSecondRateAtBeginning = function () {
 
   for(var i = 0; i < items.length; i++){
     if(localStorage.getItem(items[i].name) === null){
@@ -233,20 +233,20 @@ Game.setBitcoinPerSecondRateAtBeginning = function () {
         Game.setPriceAtGameBeginning($element, parseFloat(items[i].price), parseInt(itemAmount))
       }
 
-      // Getting the data-bits-per-sec attribute, needed for calculating the bitcoin/sec rate
+      // Getting the data-bits-per-sec attribute, needed for calculating the aopcoin/sec rate
       var bits_per_sec = $element.attr("data-bits-per-sec")
       itemAmount = parseInt(itemAmount)
 
       // The rate before
-      var before = bitcoinRate
+      var before = aopcoinRate
 
       // Calculating the rate
-      bitcoinRate = bitcoinRate + (itemAmount * bits_per_sec)
+      aopcoinRate = aopcoinRate + (itemAmount * bits_per_sec)
 
       // Logging the calculation in the console
       console.log("i = " + i + " | B/sec before: " + before.toFixed(8) +
-        " - Calculation made: " + before.toFixed(8) + " + (" + itemAmount + " * " + bits_per_sec + ") = " +  bitcoinRate.toFixed(8) +
-        " | New B/sec at " + bitcoinRate.toFixed(8))
+        " - Calculation made: " + before.toFixed(8) + " + (" + itemAmount + " * " + bits_per_sec + ") = " +  aopcoinRate.toFixed(8) +
+        " | New B/sec at " + aopcoinRate.toFixed(8))
     }
   }
 
@@ -255,30 +255,30 @@ Game.setBitcoinPerSecondRateAtBeginning = function () {
 
 
 /**
- * Function which sets a new "Bitcoin per Second" rate
+ * Function which sets a new "aopcoin per Second" rate
  *
- * @param rate - The number which must be added to the current Bitcoin per Second - rate
- * @returns {Number} - Returning the new Bitcoin per Second - rate
+ * @param rate - The number which must be added to the current aopcoin per Second - rate
+ * @returns {Number} - Returning the new aopcoin per Second - rate
  */
-Game.setNewBitcoinRate = function (rate) {
+Game.setNewaopcoinRate = function (rate) {
 
-  // Logging the new Bitcoin per second rate
-  console.log("setNewBitcoinRate -> New rate: " + (bitcoinRate + rate).toFixed(8) )
+  // Logging the new aopcoin per second rate
+  console.log("setNewaopcoinRate -> New rate: " + (aopcoinRate + rate).toFixed(8) )
 
   // Showing the new rate on the page
   // Rounding at specific values
-  if((bitcoinRate + rate) >= 1000000) {
-    $(".bSecRateNumber").text((bitcoinRate + rate).toFixed(0).optimizeNumber())
-  }else if((bitcoinRate + rate) >= 1000 ){
-    $(".bSecRateNumber").text((bitcoinRate + rate).toFixed(0))
-  }else if((bitcoinRate + rate) >= 1 ){
-    $(".bSecRateNumber").text((bitcoinRate + rate).toFixed(2))
+  if((aopcoinRate + rate) >= 1000000) {
+    $(".bSecRateNumber").text((aopcoinRate + rate).toFixed(0).optimizeNumber())
+  }else if((aopcoinRate + rate) >= 1000 ){
+    $(".bSecRateNumber").text((aopcoinRate + rate).toFixed(0))
+  }else if((aopcoinRate + rate) >= 1 ){
+    $(".bSecRateNumber").text((aopcoinRate + rate).toFixed(2))
   }else{
-    $(".bSecRateNumber").text((bitcoinRate + rate).toFixed(8))
+    $(".bSecRateNumber").text((aopcoinRate + rate).toFixed(8))
   }
 
   // Returning the new rate
-  return bitcoinRate = bitcoinRate + rate;
+  return aopcoinRate = aopcoinRate + rate;
 
 }
 
@@ -311,7 +311,7 @@ Game.setNewPrice = function()
         var calculation = (parseFloat(items[i].price) * Math.pow(multiplier, parseInt(itemAmount))).toFixed(8)
 
         // Showing the actual price
-        $element.children()[2].textContent = calculation + " Bitcoins"
+        $element.children()[2].textContent = calculation + " aopcoins"
 
         // Set the data-price attribute with the new price
         $element.attr("data-price", calculation.toString())
@@ -323,32 +323,32 @@ Game.setNewPrice = function()
 }
 
 /**
- * The function which adds new generated Bitcoins to the current Bitcoin amount.
+ * The function which adds new generated aopcoins to the current aopcoin amount.
  *
- * @param rate - The Bitcoin per second rate; Needed for adding the generated Bitcoins every second
+ * @param rate - The aopcoin per second rate; Needed for adding the generated aopcoins every second
  */
 Game.bSecFunction = function (rate) {
 
-  bitcoins = bitcoins + rate
+  aopcoins = aopcoins + rate
 
   // Show both values on the page
-  // Rounding the bitcoin number at specific set values
-  if(bitcoins > 1000000){
+  // Rounding the aopcoin number at specific set values
+  if(aopcoins > 1000000){
 
-    let bitcoinUnitNumber = bitcoins.optimizeNumber()
+    let aopcoinUnitNumber = aopcoins.optimizeNumber()
 
-    $(".bitcoinAmount").text(bitcoinUnitNumber)
-  }else if(bitcoins >= 1000){
-    $(".bitcoinAmount").text(bitcoins.toFixed(0))
-  }else if(bitcoins >= 1){
-    $(".bitcoinAmount").text(bitcoins.toFixed(2))
+    $(".aopcoinAmount").text(aopcoinUnitNumber)
+  }else if(aopcoins >= 1000){
+    $(".aopcoinAmount").text(aopcoins.toFixed(0))
+  }else if(aopcoins >= 1){
+    $(".aopcoinAmount").text(aopcoins.toFixed(2))
   }else{
-    $(".bitcoinAmount").text(bitcoins.toFixed(8))
+    $(".aopcoinAmount").text(aopcoins.toFixed(8))
   }
 
 
   // Rounding the satoshis amount at a specific value and optimize it for displaying on the screen.
-  var satoshis = bitcoins * 100000000;
+  var satoshis = aopcoins * 100000000;
 
   if(satoshis < 1000000) {
     $(".satoshiAmount").text(Math.round(satoshis))
@@ -358,8 +358,8 @@ Game.bSecFunction = function (rate) {
     $(".satoshiAmount").text(satoshiUnitNumber)
   }
 
-  // Save bitcoin amount in the storage
-  localStorage.setItem("bitcoins", "" + bitcoins + "")
+  // Save aopcoin amount in the storage
+  localStorage.setItem("aopcoins", "" + aopcoins + "")
 
   console.log("bSec -> B/sec at " + rate.toFixed(8))
 
@@ -403,7 +403,7 @@ String.prototype.optimizeNumber = Game.optimizeNumber
  */
 Game.resetGame = function () {
   Game.stopBsec()
-  localStorage.setItem("bitcoins", "0")
+  localStorage.setItem("aopcoins", "0")
   localStorage.clear()
   location.reload()
 }
@@ -415,12 +415,12 @@ Game.resetGame = function () {
  */
 
 
-// Calculates the Bitcoin/sec rate with the amount of every item multiplied with their given Bitcoins/second rate.
-Game.setBitcoinPerSecondRateAtBeginning()
+// Calculates the aopcoin/sec rate with the amount of every item multiplied with their given aopcoins/second rate.
+Game.setaopcoinPerSecondRateAtBeginning()
 
-// Stating the interval with the calculated Bitcoin/second rate.
+// Stating the interval with the calculated aopcoin/second rate.
 bSec = setInterval(function () {
-  Game.bSecFunction(bitcoinRate);
+  Game.bSecFunction(aopcoinRate);
 }, 1000)
 
 
@@ -430,46 +430,46 @@ $(document).ready(function () {
   // Write the version into the .version span element
   $(".version").text("Version " + Game.GameConst.VERSION)
 
-  // Write the bitcoin per second rate into the .bSecRateNumber span element
-  if(bitcoinRate >= 1000){
-    $(".bSecRateNumber").text(bitcoinRate.toFixed(0))
-  }else if(bitcoinRate >= 1 ){
-    $(".bSecRateNumber").text(bitcoinRate.toFixed(2))
+  // Write the aopcoin per second rate into the .bSecRateNumber span element
+  if(aopcoinRate >= 1000){
+    $(".bSecRateNumber").text(aopcoinRate.toFixed(0))
+  }else if(aopcoinRate >= 1 ){
+    $(".bSecRateNumber").text(aopcoinRate.toFixed(2))
   }else{
-    $(".bSecRateNumber").text(bitcoinRate.toFixed(8))
+    $(".bSecRateNumber").text(aopcoinRate.toFixed(8))
   }
 
 
-  // If clicked on the big Bitcoin
-  $(".bitcoin").click(function () {
+  // If clicked on the big aopcoin
+  $(".aopcoin").click(function () {
 
-    // Add 1^-8 Bitcoins (equal to 1 satoshi)
-    bitcoins = bitcoins + 0.00000001
+    // Add 1^-8 aopcoins (equal to 1 satoshi)
+    aopcoins = aopcoins + 0.00000001
 
     // Show the new number on the page
-    if(bitcoins > 1000000){
+    if(aopcoins > 1000000){
 
-      let bitcoinUnitNumber = bitcoins.optimizeNumber()
-      $(".bitcoinAmount").text(bitcoinUnitNumber)
+      let aopcoinUnitNumber = aopcoins.optimizeNumber()
+      $(".aopcoinAmount").text(aopcoinUnitNumber)
 
-    }else if(bitcoins >= 1000){
-      $(".bitcoinAmount").text(bitcoins.toFixed(0))
-    }else if(bitcoins >= 1){
-      $(".bitcoinAmount").text(bitcoins.toFixed(2))
+    }else if(aopcoins >= 1000){
+      $(".aopcoinAmount").text(aopcoins.toFixed(0))
+    }else if(aopcoins >= 1){
+      $(".aopcoinAmount").text(aopcoins.toFixed(2))
     }else{
-      $(".bitcoinAmount").text(bitcoins.toFixed(8))
+      $(".aopcoinAmount").text(aopcoins.toFixed(8))
     }
 
-    if((bitcoins * 100000000) < 1000000) {
-      $(".satoshiAmount").text(Math.round((bitcoins * 100000000)))
+    if((aopcoins * 100000000) < 1000000) {
+      $(".satoshiAmount").text(Math.round((aopcoins * 100000000)))
     }else{
 
-      let satoshiUnitNumber = (bitcoins * 100000000).optimizeNumber()
+      let satoshiUnitNumber = (aopcoins * 100000000).optimizeNumber()
       $(".satoshiAmount").text(satoshiUnitNumber)
     }
 
-    // Save the new amount of Bitcoins in the localStorage storage
-    localStorage.setItem("bitcoins", "" + bitcoins + "")
+    // Save the new amount of aopcoins in the localStorage storage
+    localStorage.setItem("aopcoins", "" + aopcoins + "")
 
   });
 
@@ -486,7 +486,7 @@ $(document).ready(function () {
     var price = parseFloat($(this).attr("data-price"))
 
     // The b/sec attribute from the item as a float number
-    var bitcoinsPerSecond = parseFloat($(this).attr("data-bits-per-sec"))
+    var aopcoinsPerSecond = parseFloat($(this).attr("data-bits-per-sec"))
 
     // The element which shows how many of the item is existing
     var amountDisplay = $(this).children()[0]
@@ -494,40 +494,40 @@ $(document).ready(function () {
 
     var priceDisplay = $(this).children()[2]
 
-    // If you have enough Bitcoins, it´ll buy one item
-    if(parseFloat(bitcoins.toFixed(8)) >= price){
+    // If you have enough aopcoins, it´ll buy one item
+    if(parseFloat(aopcoins.toFixed(8)) >= price){
 
-      // Substract the price from the current Bitcoin number and set it to the bitcoins variable.
-      bitcoins = parseFloat(bitcoins.toFixed(8)) - price
+      // Substract the price from the current aopcoin number and set it to the aopcoins variable.
+      aopcoins = parseFloat(aopcoins.toFixed(8)) - price
 
-      // Save the new amount of Bitcoins in the localStorage storage
-      localStorage.setItem("bitcoins", "" + bitcoins + "")
+      // Save the new amount of aopcoins in the localStorage storage
+      localStorage.setItem("aopcoins", "" + aopcoins + "")
 
       // Changing amount number on the right of the item
       amountDisplayAmount = amountDisplayAmount + 1
       amountDisplay.textContent = amountDisplayAmount.toString()
 
-      // Changing the Bitcoins amount
-      // Rounding the Bitcoin number at specific values
-      if(bitcoins > 1e6){
+      // Changing the aopcoins amount
+      // Rounding the aopcoin number at specific values
+      if(aopcoins > 1e6){
 
-        let bitcoinUnitNumber = bitcoins.optimizeNumber()
-        $(".bitcoinAmount").text(bitcoinUnitNumber)
+        let aopcoinUnitNumber = aopcoins.optimizeNumber()
+        $(".aopcoinAmount").text(aopcoinUnitNumber)
 
-      }else if(bitcoins >= 1000){
-        $(".bitcoinAmount").text(bitcoins.toFixed(0))
-      }else if(bitcoins >= 1){
-        $(".bitcoinAmount").text(bitcoins.toFixed(2))
+      }else if(aopcoins >= 1000){
+        $(".aopcoinAmount").text(aopcoins.toFixed(0))
+      }else if(aopcoins >= 1){
+        $(".aopcoinAmount").text(aopcoins.toFixed(2))
       }else{
-        $(".bitcoinAmount").text(bitcoins.toFixed(8))
+        $(".aopcoinAmount").text(aopcoins.toFixed(8))
       }
 
       // Calculation the Satoshi amount
-      if((bitcoins * 100000000) < 1e6) {
-        $(".satoshiAmount").text(Math.round((bitcoins * 100000000)))
+      if((aopcoins * 100000000) < 1e6) {
+        $(".satoshiAmount").text(Math.round((aopcoins * 100000000)))
       }else{
 
-        let satoshiUnitNumber = (bitcoins * 100000000).optimizeNumber()
+        let satoshiUnitNumber = (aopcoins * 100000000).optimizeNumber()
         $(".satoshiAmount").text(satoshiUnitNumber)
 
       }
@@ -541,8 +541,8 @@ $(document).ready(function () {
       // Setting a new price and show it
       Game.setNewPrice()
 
-      // Saving the new calculated Bitcoin/second rate in a variable
-      var newRate = Game.setNewBitcoinRate(bitcoinsPerSecond)
+      // Saving the new calculated aopcoin/second rate in a variable
+      var newRate = Game.setNewaopcoinRate(aopcoinsPerSecond)
 
       // Restarting the interval with the new rate
       bSec = setInterval(function () {

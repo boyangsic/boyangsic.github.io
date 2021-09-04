@@ -100,7 +100,6 @@ body{
     margin: 0 auto;
     top: 25%;
     transition: width 0.2s ease-in-out, top 0.2s ease-in-out;
-    border-radius: 500px;
 }
 .aopcoin:hover{
     width: 27%;
